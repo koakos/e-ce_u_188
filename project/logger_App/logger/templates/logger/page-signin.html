@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@koakos">
+    <meta name="twitter:creator" content="@koakos">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Logger | App">
+    <meta name="twitter:description" content="Logger | App.">
+
+    <!-- Facebook -->
+    <meta property="og:title" content="Bracket">
+    <meta property="og:description" content="Logger | App">
+
+    <!-- Meta -->
+    <meta name="description" content="Logger | App">
+    <meta name="author" content="koakos">
+
+
+    <title>Logger | App </title>
+
+     {% load static %}
+
+    <!-- vendor css -->
+    <link href="{% static 'logger/lib/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'logger/lib/Ionicons/css/ionicons.css' %}" rel="stylesheet">
+    <link href="{% static 'logger/lib/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet">
+    <!-- magen-iot-admin CSS -->
+    <link rel="stylesheet" href="{% static 'logger/css/magen-iot-admin.css' %}">
+  </head>
+
+  <body>
+
+    <div class="signpanel-wrapper">
+      <div class="signbox">
+        <div class="signbox-header">
+          <h4>Logger | App </h4>
+        </div><!-- signbox-header -->
+        <div class="signbox-body">
+          <form method="post">
+             {% csrf_token %}
+          <div class="form-group">
+            <label class="form-control-label">Username:</label>
+            <input type="text" name="username" placeholder="Enter your username" class="form-control">
+          </div><!-- form-group -->
+          <div class="form-group">
+            <label class="form-control-label">Password:</label>
+            <input type="password" name="password" placeholder="Enter your password" class="form-control">
+          </div><!-- form-group -->
+          <button class="btn btn-dark btn-block" type="submit">Sign In</button>
+        </div><!-- signbox-body -->
+      </form>
+      </div><!-- signbox -->
+    </div><!-- signpanel-wrapper -->
+
+    <script src="{% static 'logger/lib/jquery/jquery.js' %}"></script>
+    <script src="{% static 'logger/lib/popper.js/popper.js' %}"></script>
+    <script src="{% static 'logger/lib/bootstrap/bootstrap.js' %}"></script>
+  </body>
+</html>

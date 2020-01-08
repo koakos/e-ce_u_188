@@ -1,0 +1,35 @@
+{% extends 'logger/base.html' %}
+
+{%block body %}
+    <div class="kt-breadcrumb">
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="index.html">Dashboard</a>
+        <span class="breadcrumb-item active">New sale</span>
+      </nav>
+    </div><!-- kt-breadcrumb -->
+
+    <!-- ##### MAIN PANEL ##### -->
+    <div class="kt-mainpanel">
+      <div class="kt-pagetitle">
+        <h5>Add New Sale</h5>
+      </div><!-- kt-pagetitle -->
+
+      <div class="kt-pagebody">
+        <div class="row row-sm">
+          <div class="col-lg-6">
+            <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
+              <h6 class="card-body-title">Sale Detail</h6>
+              <form method="post">
+                 {% csrf_token %}
+                 {% include 'logger/form-template.html' %}
+                <div class="form-layout-footer mg-t-30">
+                  <button class="btn btn-default mg-r-5">Submit Form</button>
+                </div><!-- form-layout-footer -->
+            </form>
+            </div><!-- card -->
+          </div><!-- col-6 -->
+        </div>
+      </div><!-- kt-pagebody -->
+    </div><!-- kt-mainpanel -->
+
+{%endblock%}

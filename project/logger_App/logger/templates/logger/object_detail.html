@@ -1,0 +1,149 @@
+{% extends 'logger/base.html' %}
+
+{%block body %}
+   {% load static %}
+    <div class="kt-breadcrumb">
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="index.html">Dashboard</a>
+        <span class="breadcrumb-item active">{{type}} #{{object.id}}</span>
+      </nav>
+    </div><!-- kt-breadcrumb -->
+
+    <!-- ##### MAIN PANEL ##### -->
+    <!-- ##### MAIN PANEL ##### -->
+    <div class="kt-mainpanel">
+      <div class="kt-pagetitle">
+        <h5>{{type}} #{{object.id}}</h5>
+      </div><!-- kt-pagetitle -->
+
+      <div class="kt-pagebody">
+        <div class="row row-sm">
+            <div class="col-lg-12">
+              <div class="card bd-gray-300">
+                <div class="card-header bg-gray-100 pd-y-15 pd-x-20">
+                  <h6 class="card-title tx-uppercase tx-12 mg-b-0">{{type}} #{{object.id}} Details</h6>
+                </div><!-- card-header -->
+                <div class="table-responsive">
+                  <table class="table table-white mg-b-0 tx-12">
+                    <tbody>
+                      <tr>
+                        <td class="pd-l-20 tx-center">
+                          <img src="{% static 'logger/img/conn.svg' %}" class="wd-36 rounded-circle" alt="Image">
+                        </td>
+                        <td>
+                          <a href="" class="tx-inverse tx-14 tx-medium d-block">{{object.customer.first_name}} {{object.customer.last_name}}</a>
+                          <span class="tx-11 d-block">Phone: {{object.customer.telephone}}</span>
+                        </td>
+                        <td class="tx-12">
+                          {% if object.repaired is True %}
+                          <span class="square-8 bg-success mg-r-5 rounded-circle"></span>Repaired
+                          {% endif %}
+                          {% if object.repaired is False %}
+                          <span class="square-8 bg-danger mg-r-5 rounded-circle"></span>Unrepaired
+                          {% endif %}
+                        </td>
+                        <td>{{object.created_at|date:"d-m-Y H:i"}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card -->
+            </div><!-- col-12 -->
+          </div><!-- row -->
+          <div class="row row-sm mg-t-20">
+              <div class="col-lg-12">
+                <div class="card pd-20 pd-sm-40">
+                  <div class="table-wrapper mg-t-20">
+                    <table id="{{type}}" class="table display responsive nowrap">
+                      <thead>
+                        <tr>
+                          <th class="wd-15p">Device Model</th>
+                          <th class="wd-15p">Serial Number</th>
+                          <th class="wd-20p">Issue</th>
+                          <th class="wd-20p">Comments</th>
+                          <th class="wd-15p">Warranty</th>
+                          <th class="wd-10p">Cost</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{object.device_model}}</td>
+                          <td>{{object.serial_number}}</td>
+                          <td>{{object.Repairs}}</td>
+                          <td>{{object.comments}}</td>
+                          <td>{{object.Warranty}}</td>
+                          <td>{{object.cost}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div><!-- table-wrapper -->
+                </div><!-- card -->
+            </div><!-- col-12 -->
+          </div><!-- row -->
+          {% if request.user.is_staff %}
+          <div class="row row-sm mg-t-20">
+             <div class="col-sm-3">
+               <div class="card pd-40 tx-center">
+                 <h6 class="tx-md-20 tx-inverse mg-b-20">Status</h6>
+                  {% if object.repaired is True %}
+                  <a href="{% url 'logger:update-product-field' type object.id 'repaired' %}" class="btn btn-success btn-block">Repaired</a>
+                  {% endif %}
+                  {% if object.repaired is False %}
+                  <a href="{% url 'logger:update-product-field' type object.id 'repaired' %}" class="btn btn-danger btn-block">Unrepaired</a>
+                  {% endif %}
+               </div><!-- card -->
+             </div><!-- col-4 -->
+             <div class="col-sm-3 mg-t-20 mg-sm-t-0">
+               <div class="card pd-40 tx-center">
+                 <h6 class="tx-md-20 tx-inverse mg-b-20">Payment</h6>
+                 {% if object.payed is True %}
+                 <a href="{% url 'logger:update-product-field' type object.id 'payed' %}" class="btn btn-success btn-block">Paid</a>
+                 {% endif %}
+                 {% if object.payed is False %}
+                 <a href="{% url 'logger:update-product-field' type object.id 'payed' %}" class="btn btn-danger btn-block">Unpaid</a>
+                 {% endif %}
+               </div><!-- card -->
+             </div><!-- col-4 -->
+             <div class="col-sm-3 mg-t-20 mg-sm-t-0">
+               <div class="card pd-40 tx-center">
+                 <h6 class="tx-md-20 tx-inverse mg-b-20">Canceled</h6>
+                 {% if object.canceled is True %}
+                 <a href="{% url 'logger:update-product-field' type object.id 'canceled' %}" class="btn btn-success btn-block">Yes</a>
+                 {% endif %}
+                 {% if object.canceled is False %}
+                 <a href="{% url 'logger:update-product-field' type object.id 'canceled' %}" class="btn btn-danger btn-block">No</a>
+                 {% endif %}
+               </div><!-- card -->
+             </div><!-- col-4 -->
+             <div class="col-sm-3 mg-t-20 mg-sm-t-0">
+               <div class="card pd-40 tx-center">
+                 <h6 class="tx-md-20 tx-inverse mg-b-20">Customized</h6>
+                 <a href="{% url 'logger:product-update' type object.id %}" class="btn btn-default btn-block">Edit</a>
+               </div><!-- card -->
+             </div><!-- col-4 -->
+           </div><!-- row -->
+           {%endif%}
+      </div><!-- kt-pagebody -->
+    </div><!-- kt-mainpanel -->
+
+    {%endblock%}
+
+    {%block scripts %}
+
+
+    <script>
+      $(function(){
+        'use strict';
+
+        $('#{{type}}').DataTable({
+          bLengthChange: false,
+          searching: false,
+          responsive: true
+        });
+
+
+      });
+
+
+    </script>
+  {%endblock%}

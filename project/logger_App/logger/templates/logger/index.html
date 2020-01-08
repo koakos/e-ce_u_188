@@ -1,0 +1,238 @@
+{% extends 'logger/base.html' %}
+
+{%block body %}
+    <div class="kt-breadcrumb">
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="index.html">Dashboard</a>
+        <span class="breadcrumb-item active">Logger</span>
+      </nav>
+    </div><!-- kt-breadcrumb -->
+
+    <!-- ##### MAIN PANEL ##### -->
+    <div class="kt-mainpanel">
+      <div class="kt-pagetitle">
+        <h5>Logger</h5>
+      </div><!-- kt-pagetitle -->
+
+      <div class="kt-pagebody">
+        <div class="row row-sm">
+          <div class="col-lg-4">
+            <div class="card pd-20">
+              <h6 class="tx-12 tx-uppercase tx-inverse tx-bold mg-b-15">Notebook Fixes Report</h6>
+              <div class="d-flex mg-b-10">
+                <div class="bd-r pd-r-10">
+                  <label class="tx-12">Today</label>
+                  <p class="tx-lato tx-inverse tx-bold">{{notebook_stats.0}}</p>
+                </div>
+                <div class="bd-r pd-x-10">
+                  <label class="tx-12">This Week</label>
+                  <p class="tx-lato tx-inverse tx-bold">{{notebook_stats.1}}</p>
+                </div>
+                <div class="pd-l-10">
+                  <label class="tx-12">This Month</label>
+                  <p class="tx-lato tx-inverse tx-bold">{{notebook_stats.2}}</p>
+                </div>
+              </div><!-- d-flex -->
+              <div class="progress mg-b-10">
+                <div class="progress-bar wd-{{notebook_percentage}}p" role="progressbar" aria-valuenow="{{notebook_percentage}}" aria-valuemin="0" aria-valuemax="100">{{notebook_percentage}}% Repaired</div>
+              </div>
+            </div><!-- card -->
+          </div><!-- col-4 -->
+          <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+            <div class="card pd-20 bg-app-primary bd-0 tx-white-6">
+              <h6 class="tx-12 tx-uppercase tx-white mg-b-15">Smartphone Fixes Report</h6>
+              <div class="d-flex mg-b-10">
+                <div class="bd-r bd-white-2 pd-r-10">
+                  <label class="tx-12">Today</label>
+                  <p class="tx-lato tx-white tx-bold">{{smartphone_stats.0}}</p>
+                </div>
+                <div class="bd-r bd-white-2 pd-x-10">
+                  <label class="tx-12">This Week</label>
+                  <p class="tx-lato tx-white tx-bold">{{smartphone_stats.1}}</p>
+                </div>
+                <div class="pd-l-10">
+                  <label class="tx-12">This Month</label>
+                  <p class="tx-lato tx-white tx-bold">{{smartphone_stats.2}}</p>
+                </div>
+              </div><!-- d-flex -->
+              <div class="progress bg-white-2 mg-b-10">
+                <div class="progress-bar bg-warning wd-{{smartphone_percentage}}p" role="progressbar" aria-valuenow="{{smartphone_percentage}}" aria-valuemin="0" aria-valuemax="100">{{smartphone_percentage}}% Repaired</div>
+              </div>
+            </div><!-- card -->
+          </div><!-- col-4 -->
+          <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+            <div class="card pd-20 bg-dark bd-0 tx-white-6">
+              <h6 class="tx-12 tx-uppercase tx-white mg-b-15">Tablet Fixes Report</h6>
+              <div class="d-flex mg-b-10">
+                <div class="bd-r bd-white-2 pd-r-10">
+                  <label class="tx-12">Today</label>
+                  <p class="tx-lato tx-white tx-bold">{{tablet_stats.0}}</p>
+                </div>
+                <div class="bd-r bd-white-2 pd-x-10">
+                  <label class="tx-12">This Week</label>
+                  <p class="tx-lato tx-white tx-bold">{{tablet_stats.1}}</p>
+                </div>
+                <div class="pd-l-10">
+                  <label class="tx-12">This Month</label>
+                  <p class="tx-lato tx-white tx-bold">{{tablet_stats.2}}</p>
+                </div>
+              </div><!-- d-flex -->
+              <div class="progress bg-white-2 mg-b-10">
+                <div class="progress-bar bg-info  wd-{{tablet_percentage}}p" role="progressbar" aria-valuenow="{{tablet_percentage}}" aria-valuemin="0" aria-valuemax="100">{{tablet_percentage}}% Repaired</div>
+              </div>
+            </div><!-- card -->
+          </div><!-- col-4 -->
+        </div><!-- row -->
+          <div class="row row-sm mg-t-20">
+            <div class="col-lg-12">
+              <div class="card pd-20 pd-sm-40">
+                <h6 class="card-body-title">Unrepaired Notebooks</h6>
+                <p class="mg-b-20 mg-sm-b-30">Searching Unrepaired Notebook</p>
+
+                <div class="table-wrapper">
+                  <table id="laptops" class="table display responsive nowrap">
+                    <thead>
+                      <tr>
+                        <th class="wd-5p">Id</th>
+                        <th class="wd-15p">Date</th>
+                        <th class="wd-15p">Name</th>
+                        <th class="wd-20p">Device Model</th>
+                        <th class="wd-20p">Serial Number</th>
+                        <th class="wd-20p">Issue</th>
+                        <th class="wd-10p">Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for notebook in customer_unrepaired_notebooks.all %}
+                      <tr>
+                        <td><a href="{% url 'logger:product-detail' 'Notebook' notebook.id %}">{{notebook.id}}</a></td>
+                        <td>{{notebook.created_at|date:"d-m-Y H:i"}}</td>
+                        <td>{{notebook.customer.first_name}} {{notebook.customer.last_name}}</td>
+                        <td>{{notebook.device_model}}</td>
+                        <td>{{notebook.serial_number}}</td>
+                        <td>{{notebook.Repairs}}</td>
+                        <td>{{notebook.cost}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div><!-- table-wrapper -->
+              </div><!-- card -->
+          </div><!-- col-12 -->
+        </div><!-- row -->
+        <div class="row row-sm mg-t-20">
+            <div class="col-lg-12">
+              <div class="card pd-20 pd-sm-40">
+                <h6 class="card-body-title">Unrepaired Smartphones</h6>
+                <p class="mg-b-20 mg-sm-b-30">Searching Unrepaired smartphones</p>
+
+                <div class="table-wrapper">
+                  <table id="phones" class="table display responsive nowrap">
+                    <thead>
+                      <tr>
+                        <th class="wd-5p">Id</th>
+                        <th class="wd-15p">Date</th>
+                        <th class="wd-15p">Name</th>
+                        <th class="wd-20p">Device Model</th>
+                        <th class="wd-20p">Serial Number</th>
+                        <th class="wd-20p">Issue</th>
+                        <th class="wd-10p">Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for smartphone in customer_unrepaired_smartphones.all %}
+                      <tr>
+                        <td><a href="{% url 'logger:product-detail' 'Smartphone' smartphone.id %}">{{smartphone.id}}</a></td>
+                        <td>{{smartphone.created_at|date:"d-m-Y H:i"}}</td>
+                        <td>{{smartphone.customer.first_name}} {{smartphone.customer.last_name}}</td>
+                        <td>{{smartphone.device_model}}</td>
+                        <td>{{smartphone.serial_number}}</td>
+                        <td>{{smartphone.Repairs}}</td>
+                        <td>{{smartphone.cost}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div><!-- table-wrapper -->
+              </div><!-- card -->
+          </div><!-- col-12 -->
+        </div><!-- row -->
+        <div class="row row-sm mg-t-20">
+            <div class="col-lg-12">
+              <div class="card pd-20 pd-sm-40">
+                <h6 class="card-body-title">Unrepaired Tablets</h6>
+                <p class="mg-b-20 mg-sm-b-30">Searching Unrepaired tablets</p>
+
+                <div class="table-wrapper">
+                  <table id="tablets" class="table display responsive nowrap">
+                    <thead>
+                      <tr>
+                        <th class="wd-5p">Id</th>
+                        <th class="wd-15p">Date</th>
+                        <th class="wd-15p">Name</th>
+                        <th class="wd-20p">Device Model</th>
+                        <th class="wd-20p">Serial Number</th>
+                        <th class="wd-20p">Issue</th>
+                        <th class="wd-10p">Cost</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for tablet in customer_unrepaired_tablets.all %}
+                      <tr>
+                        <td><a href="{% url 'logger:product-detail' 'Tablet' tablet.id %}">{{tablet.id}}</a></td>
+                        <td>{{tablet.created_at|date:"d-m-Y H:i"}}</td>
+                        <td>{{tablet.customer.first_name}} {{tablet.customer.last_name}}</td>
+                        <td>{{tablet.device_model}}</td>
+                        <td>{{tablet.serial_number}}</td>
+                        <td>{{tablet.Repairs}}</td>
+                        <td>{{tablet.cost}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div><!-- table-wrapper -->
+              </div><!-- card -->
+          </div><!-- col-12 -->
+        </div><!-- row -->
+      </div><!-- kt-pagebody -->
+    </div><!-- kt-mainpanel -->
+
+ {%endblock%}
+
+ {%block scripts %}
+
+    <script>
+      $(function(){
+        'use strict';
+
+        $('#laptops').DataTable({
+          responsive: true,
+          language: {
+            searchPlaceholder: 'Search...',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+          }
+        });
+
+        $('#phones').DataTable({
+          responsive: true,
+          language: {
+            searchPlaceholder: 'Search...',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+          }
+        });
+
+        $('#tablets').DataTable({
+          responsive: true,
+          language: {
+            searchPlaceholder: 'Search...',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+          }
+        });
+
+      });
+
+    </script>
+ {%endblock%}

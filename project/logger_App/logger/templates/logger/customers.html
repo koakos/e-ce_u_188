@@ -1,0 +1,84 @@
+{% extends 'logger/base.html' %}
+
+{%block body %}
+    <div class="kt-breadcrumb">
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="index.html">Dashboard</a>
+        <span class="breadcrumb-item active">Customers</span>
+      </nav>
+    </div><!-- kt-breadcrumb -->
+
+    <!-- ##### MAIN PANEL ##### -->
+    <div class="kt-mainpanel">
+      <div class="kt-pagetitle">
+        <h5>Customers</h5>
+      </div><!-- kt-pagetitle -->
+
+      <div class="kt-pagebody">
+        <div class="row row-sm">
+          <div class="col-lg-12">
+            <div class="card pd-20 pd-sm-40">
+              <h6 class="card-body-title">Customers</h6>
+              <p class="mg-b-20 mg-sm-b-30">Searching customers</p>
+              <div class="d-flex">
+                 <a href="{% url 'logger:add-new-customer' %}" class="btn btn-info bd-0 pd-x-20"><i class="fa fa-plus mg-r-5"></i>Add New</a>
+               </div><!-- d-flex -->
+              <div class="table-wrapper mg-t-20">
+                <table id="customers" class="table display responsive nowrap">
+                  <thead>
+                    <tr>
+                      <th class="wd-15p">First_name</th>
+                      <th class="wd-15p">Last_name</th>
+                      <th class="wd-20p">Customer Type</th>
+                      <th class="wd-20p">Vat Id</th>
+                      <th class="wd-15p">Address</th>
+                      <th class="wd-12p">Telephone</th>
+                      <th class="wd-15p">E-mail</th>
+                      <th class="wd-10p">Pending Payments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%for object in object_list %}
+                    <tr>
+                      <td>{{object.first_name}}</td>
+                      <td>{{object.last_name}}</td>
+                      <td>{{object.customer_type}}</td>
+                      <td>{{object.vat_id}}</td>
+                      <td>{{object.address}}</td>
+                      <td>{{object.telephone}}</td>
+                      <td>{{object.e_mail}}</td>
+                      <td>{{object.Balance}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div><!-- table-wrapper -->
+            </div><!-- card -->
+        </div><!-- col-12 -->
+      </div><!-- row -->
+      </div><!-- kt-pagebody -->
+    </div><!-- kt-mainpanel -->
+
+    {%endblock%}
+
+    {%block scripts %}
+
+    <script>
+      $(function(){
+        'use strict';
+
+        $('#customers').DataTable({
+          responsive: true,
+          language: {
+            searchPlaceholder: 'Search...',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+          }
+        });
+
+      });
+
+
+    </script>
+
+  {%endblock%}

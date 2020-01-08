@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@koakos">
+    <meta name="twitter:creator" content="@koakos">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Logger | App">
+    <meta name="twitter:description" content="Logger | App.">
+
+    <!-- Facebook -->
+    <meta property="og:title" content="Bracket">
+    <meta property="og:description" content="Logger | App">
+
+    <!-- Meta -->
+    <meta name="description" content="Logger | App">
+    <meta name="author" content="koakos">
+
+
+    <title>Logger | App </title>
+
+     {% load static %}
+
+    <!-- vendor css -->
+    <link href="{% static 'logger/lib/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'logger/lib/Ionicons/css/ionicons.css' %}" rel="stylesheet">
+    <link href="{% static 'logger/lib/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet">
+    <link href="{% static 'logger/lib/highlightjs/github.css' %}" rel="stylesheet">
+    <link href="{% static 'logger/lib/datatables/jquery.dataTables.css' %}" rel="stylesheet">
+    <link href="{% static 'logger/lib/select2/css/select2.min.css' %}" rel="stylesheet">
+
+    <!-- magen-iot-admin CSS -->
+    <link rel="stylesheet" href="{% static 'logger/css/magen-iot-admin.css' %}">
+  </head>
+
+  <body>
+
+        <!-- ##### SIDEBAR LOGO ##### -->
+        <div class="kt-sideleft-header">
+          <div class="kt-logo"><a href="/logger">Logger <small></small></a></div>
+          <div id="ktDate" class="kt-date-today"></div>
+        </div><!-- kt-sideleft-header -->
+
+        <!-- ##### SIDEBAR MENU ##### -->
+        <div class="kt-sideleft">
+          <label class="kt-sidebar-label">Navigation</label>
+          <ul class="nav kt-sideleft-menu">
+            <li class="nav-item">
+              <a href="/logger" class="nav-link">
+                <i class="icon ion-ios-home-outline"></i>
+                <span>Dashboard</span>
+              </a>
+            </li><!-- nav-item -->
+            {%if request.user.is_staff %}
+            <li class="nav-item">
+              <a href="/logger/Customers" class="nav-link">
+                <i class="icon ion-person"></i>
+                <span>Customers</span>
+              </a>
+            </li><!-- nav-item -->
+            <li class="nav-item">
+              <a href="/logger/Sales" class="nav-link">
+                <i class="icon ion-ios-bookmarks-outline"></i>
+                <span>Sales</span>
+              </a>
+            </li><!-- nav-item -->
+            {% endif %}
+            <li class="nav-item">
+              <a href="/logger/Notebook" class="nav-link">
+                <i class="icon ion-laptop"></i>
+                <span>Notebooks</span>
+              </a>
+            </li><!-- nav-item -->
+            <li class="nav-item">
+              <a href="/logger/Smartphone" class="nav-link">
+                <i class="icon ion-iphone"></i>
+                <span>Smartphones</span>
+              </a>
+            </li><!-- nav-item -->
+            <li class="nav-item">
+              <a href="/logger/Tablet" class="nav-link">
+                <i class="icon ion-ipad"></i>
+                <span>Tablets</span>
+              </a>
+            </li><!-- nav-item -->
+            <li class="nav-item">
+              <a href="/logger/Other" class="nav-link">
+                <i class="icon ion-monitor"></i>
+                <span>Others</span>
+              </a>
+            </li><!-- nav-item -->
+          </ul>
+        </div><!-- kt-sideleft -->
+
+        <!-- ##### HEAD PANEL ##### -->
+        <div class="kt-headpanel">
+          <div class="kt-headpanel-left">
+            <a id="naviconMenu" href="" class="kt-navicon d-none d-lg-flex"><img src="{% static 'logger/img/menu.svg' %}" width="30"/></a>
+            <a id="naviconMenuMobile" href="" class="kt-navicon d-lg-none"><i class="icon ion-navicon-round"></i></a>
+          </div><!-- kt-headpanel-left -->
+
+          <div class="kt-headpanel-right">
+            <div class="dropdown dropdown-profile">
+              <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
+                <span class="logged-name"><span class="hidden-xs-down">{{request.user.customer.first_name}} {{request.user.customer.last_name}}</span> <i class="fa fa-angle-down mg-l-3"></i></span>
+              </a>
+              <div class="dropdown-menu wd-200">
+                <ul class="list-unstyled user-profile-nav">
+                  <li><a href="{% url 'logout' %}"><i class="icon ion-power"></i> Sign Out</a></li>
+                </ul>
+              </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+          </div><!-- kt-headpanel-right -->
+        </div><!-- kt-headpanel -->
+
+    {% block body %}
+
+    {% endblock %}
+
+
+    <script src="{% static 'logger/lib/jquery/jquery.js' %}"></script>
+    <script src="{% static 'logger/lib/popper.js/popper.js' %}"></script>
+    <script src="{% static 'logger/lib/bootstrap/bootstrap.js' %}"></script>
+    <script src="{% static 'logger/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js' %}"></script>
+    <script src="{% static 'logger/lib/moment/moment.js' %}"></script>
+    <script src="{% static 'logger/lib/highlightjs/highlight.pack.js' %}"></script>
+    <script src="{% static 'logger/lib/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'logger/lib/datatables-responsive/dataTables.responsive.js' %}"></script>
+    <script src="{% static 'logger/lib/select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'logger/js/magen-iot-admin.js' %}"></script>
+
+    {% block scripts %}
+    {% endblock %}
+
+  </body>
+</html>
